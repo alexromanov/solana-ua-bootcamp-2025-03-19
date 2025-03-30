@@ -1,0 +1,10 @@
+[package]
+name = "keypair-gen"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+solana-sdk = "2.2.2"
+solana-client = "2.2.6"
+dotenv = "0.15"
+log = "0.4"
