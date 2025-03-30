@@ -1,6 +1,6 @@
 use dotenv::dotenv;
 use solana_sdk::{bs58, pubkey::Pubkey, signature::Keypair, signer::Signer};
-use std::env;
+use std::{env, time::Instant};
 use solana_client::rpc_client::RpcClient;
 
 fn main() {
@@ -15,6 +15,10 @@ fn main() {
     println!("\nCheck balance\n");
     let balance = check_balance(&load_key.pubkey());
     println!("Balance for the wallet at address: {} is {} SOL", load_key.pubkey(), balance);
+
+    println!("\nGenerate key with prefix\n");
+    let prefix = "Al";
+    generate_keypair_with_prefix(prefix);
 }
 
 fn print_keypair(keypair: &Keypair) {
@@ -55,4 +59,31 @@ fn check_balance(public_key: &Pubkey) -> f64 {
 
     let balance_in_sol = balance as f64 / 1_000_000_000.0;
     balance_in_sol
+}
+
+fn generate_keypair_with_prefix(prefix: &str) -> Keypair {
+    println!("Generating private key with prefix: {}", prefix);
+
+    let start = Instant::now();
+    let mut attempts = 0;
+    let mut keypair;
+
+    loop {
+        attempts += 1;
+        keypair = Keypair::new();
+        let private_key = bs58::encode(keypair.to_bytes()).into_string();
+
+        if private_key.starts_with(prefix) {
+            println!("Key found after {} attempts!", attempts);
+            println!("Private Key (Base58): {}", private_key);
+            println!("Public Key: {}", keypair.pubkey());
+            println!("Took {:.2?} seconds", start.elapsed());
+            break;
+        }
+
+        if attempts % 100_000 == 0 {
+            println!("Attempts: {}", attempts);
+        }
+    }
+    keypair
 }
