@@ -74,7 +74,7 @@ fn check_balance(public_key: &Pubkey) -> f64 {
 }
 
 fn generate_keypair_with_prefix(prefix: &str) -> Keypair {
-    debug!("Generating private key with prefix: {}", prefix);
+    debug!("Generating keypair with public key prefix: {}", prefix);
 
     let start = Instant::now();
     let mut attempts = 0;
@@ -83,12 +83,12 @@ fn generate_keypair_with_prefix(prefix: &str) -> Keypair {
     loop {
         attempts += 1;
         keypair = Keypair::new();
-        let private_key = bs58::encode(keypair.to_bytes()).into_string();
+        let public_key = keypair.pubkey().to_string();
 
-        if private_key.starts_with(prefix) {
+        if public_key.starts_with(prefix) {
             debug!("Key found after {} attempts!", attempts);
-            debug!("Private Key (Base58): {}", private_key);
-            debug!("Public Key: {}", keypair.pubkey());
+            debug!("Public Key: {}", public_key);
+            debug!("Private Key (Base58): {}", bs58::encode(keypair.to_bytes()).into_string());
             debug!("Took {:.2?} seconds", start.elapsed());
             break;
         }

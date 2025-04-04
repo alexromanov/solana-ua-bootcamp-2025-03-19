@@ -5,7 +5,7 @@ Including:
 - function to load keypair from the .env
 - function to print keypair to console
 - function to check the balance for an key from the .env
-- function to generate keypair with private key of specific prefix
+- function to generate keypair with public key of specific prefix
 
 ## How to run
 - `cargo run` - to show default output
