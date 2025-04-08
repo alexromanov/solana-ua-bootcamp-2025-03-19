@@ -132,12 +132,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let signature = client.send_and_confirm_transaction(&transaction)
         .expect("Failed to send and confirm transaction");
-    println!("Transaction successful with signature: {}", signature);
 
-    println!("Token minted successfully!");
-    println!("Mint address: {}", mint_pubkey);
-    println!("Token account: {}", token_account);
-    println!("Metadata address: {}", metadata_pubkey);
+    let explorer_link = format!(
+        "https://explorer.solana.com/address/{}?cluster=devnet",
+        mint.pubkey()
+    );
+
+    println!("Token mint created: {}", explorer_link);
+    println!("Transaction signature: {}", signature);
 
     Ok(())
 }
