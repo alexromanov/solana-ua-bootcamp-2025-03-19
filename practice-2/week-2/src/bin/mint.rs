@@ -32,7 +32,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let decimals = 2;
     let mint = Keypair::new();
 
-    let mint_rent = client.get_minimum_balance_for_rent_exemption(Mint::LEN)?;
+    let mint_rent = client.get_minimum_balance_for_rent_exemption(Mint::LEN)
+        .expect("Failed to get minimum balance for rent");
 
     let create_account_ix = system_instruction::create_account(
         &payer.pubkey(),
@@ -48,7 +49,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         &payer.pubkey(),
         None,
         decimals,
-    )?;
+    ).expect("Failed to create initialize mint instruction");
 
     let associated_token_address = get_associated_token_address(&payer.pubkey(), &mint.pubkey());
 
@@ -71,7 +72,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         &payer.pubkey(),
         &[],
         amount.into(),
-    )?;
+    ).expect("Failed to create mint intruction");
 
     let recent_blockhash = client.get_latest_blockhash()?;
 
@@ -87,7 +88,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         recent_blockhash,
     );
 
-    let signature = client.send_and_confirm_transaction(&transaction)?;
+    let signature = client.send_and_confirm_transaction(&transaction)
+        .expect("Failed to send and confirm transaction");
 
     let explorer_link = format!(
         "https://explorer.solana.com/address/{}?cluster=devnet",
