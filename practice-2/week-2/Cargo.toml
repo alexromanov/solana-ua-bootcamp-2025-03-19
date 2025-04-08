@@ -1,0 +1,27 @@
+[package]
+name = "week-2"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+dotenv = "0.15.0"
+solana-client = "2.2.7"
+solana-program = "2.2.1"
+solana-sdk = "2.2.2"
+spl-token = "8.0.0"
+spl-associated-token-account = "6.0.0"
+serde_json = "1.0"
+log = "0.4"
+env_logger = "0.11.8"
+
+[[bin]]
+name = "my_project"  # Default binary name
+path = "src/main.rs"
+
+[[bin]]
+name = "send_sol"
+path = "src/bin/send_sol.rs"
+
+[[bin]]
+name = "mint"
+path = "src/bin/mint.rs"
