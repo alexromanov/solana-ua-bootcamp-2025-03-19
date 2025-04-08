@@ -13,6 +13,9 @@ spl-associated-token-account = "6.0.0"
 serde_json = "1.0"
 log = "0.4"
 env_logger = "0.11.8"
+mpl-token-metadata = "5.1.0"
+borsh = "1.5.7"
+thiserror = "2.0.12"
 
 [[bin]]
 name = "my_project"  # Default binary name
@@ -25,3 +28,7 @@ path = "src/bin/send_sol.rs"
 [[bin]]
 name = "mint"
 path = "src/bin/mint.rs"
+
+[[bin]]
+name = "mint_metadata"
+path = "src/bin/mint_metadata.rs"
