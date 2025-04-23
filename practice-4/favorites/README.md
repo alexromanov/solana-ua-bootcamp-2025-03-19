@@ -1,0 +1,2 @@
+- Build `RUSTUP_TOOLCHAIN=nightly-2025-04-14 anchor build`
+- Test `RUSTUP_TOOLCHAIN=nightly-2025-04-14 anchor test`
